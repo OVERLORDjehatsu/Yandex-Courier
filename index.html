@@ -19,7 +19,7 @@
             align-items: center;
             color: white;
             text-shadow: 1px 1px 2px black;
-            transition: background-image 0.5s ease;
+            transition: all 0.5s ease;
         }
 
         /* Стили для первой страницы */
@@ -49,6 +49,13 @@
             flex-direction: column;
             justify-content: flex-end;
             align-items: center;
+        }
+
+        body.page2-active {
+            background-image: url('https://i.imgur.com/yat5SFR.jpg');
+            background-position: center 15%; /* Поднятие фона на 15% от верха */
+            background-size: cover;
+            background-repeat: no-repeat;
         }
 
         .page2-button {
@@ -91,17 +98,14 @@
 
     <script>
         document.getElementById('partnerBtn').addEventListener('click', function() {
-            // Меняем фон
-            document.body.style.backgroundImage = "url('https://i.imgur.com/yat5SFR.jpg')";
+            // Добавляем класс для смены фона и поднятия изображения
+            document.body.classList.add('page2-active');
 
             // Прячем кнопку первой страницы
             this.style.display = 'none';
 
             // Показываем контент второй страницы
             document.getElementById('page2').style.display = 'flex';
-
-            // Меняем структуру отображения
-            document.body.style.justifyContent = 'flex-end';
         });
     </script>
 </body>
