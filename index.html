@@ -37,27 +37,35 @@
             border-radius: 15px;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s ease;
         }
 
-        .bottom-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-        }
-
-        .bottom-button:active {
-            transform: translateY(0);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        .page2-content {
+            display: none;
+            /* Стили для контента второй страницы */
         }
     </style>
 </head>
 <body>
     <button class="bottom-button" id="partnerBtn">СТАТЬ ПАРТНЕРОМ</button>
 
+    <div class="page2-content" id="page2">
+        <!-- Контент для второй страницы -->
+    </div>
+
     <script>
         document.getElementById('partnerBtn').addEventListener('click', function() {
+            // Меняем фон
             document.body.style.backgroundImage = "url('https://i.imgur.com/yat5SFR.jpg')";
-            // Здесь можно добавить дополнительный код для отображения нового контента
+
+            // Прячем кнопку
+            this.style.display = 'none';
+
+            // Показываем контент второй страницы
+            document.getElementById('page2').style.display = 'block';
+
+            // Меняем структуру отображения (если нужно)
+            document.body.style.justifyContent = 'center';
         });
     </script>
 </body>
