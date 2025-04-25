@@ -22,6 +22,7 @@
             transition: background-image 0.5s ease;
         }
 
+        /* Стили для первой страницы */
         .bottom-button {
             width: 60%;
             max-width: 500px;
@@ -40,17 +41,52 @@
             transition: all 0.3s ease;
         }
 
+        /* Стили для второй страницы */
         .page2-content {
             display: none;
-            /* Стили для контента второй страницы */
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .page2-button {
+            width: 60%;
+            max-width: 500px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            text-align: center;
+            padding: 16px 0;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .button-top {
+            background: #EEEEEE;
+            color: black;
+        }
+
+        .button-bottom {
+            background: #FCE000;
+            color: black;
+            margin-bottom: 50px;
         }
     </style>
 </head>
 <body>
+    <!-- Первая страница -->
     <button class="bottom-button" id="partnerBtn">СТАТЬ ПАРТНЕРОМ</button>
 
+    <!-- Вторая страница -->
     <div class="page2-content" id="page2">
-        <!-- Контент для второй страницы -->
+        <button class="page2-button button-top">ВЕРХНЯЯ КНОПКА</button>
+        <button class="page2-button button-bottom">НИЖНЯЯ КНОПКА</button>
     </div>
 
     <script>
@@ -58,14 +94,14 @@
             // Меняем фон
             document.body.style.backgroundImage = "url('https://i.imgur.com/yat5SFR.jpg')";
 
-            // Прячем кнопку
+            // Прячем кнопку первой страницы
             this.style.display = 'none';
 
             // Показываем контент второй страницы
-            document.getElementById('page2').style.display = 'block';
+            document.getElementById('page2').style.display = 'flex';
 
-            // Меняем структуру отображения (если нужно)
-            document.body.style.justifyContent = 'center';
+            // Меняем структуру отображения
+            document.body.style.justifyContent = 'flex-end';
         });
     </script>
 </body>
