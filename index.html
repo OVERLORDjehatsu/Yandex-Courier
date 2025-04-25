@@ -48,7 +48,7 @@
             align-items: center;
             position: fixed;
             bottom: 0;
-            padding-bottom: 5vh;
+            padding-bottom: 20px; /* Фиксированный отступ для телефона */
             background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
         }
 
@@ -59,7 +59,7 @@
         }
 
         .page2-button {
-            width: 80%;
+            width: 60%;
             max-width: 500px;
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
@@ -81,26 +81,32 @@
         .button-bottom {
             background: #FCE000;
             color: black;
-            margin-bottom: 5vh;
+            margin-bottom: 20px; /* Фиксированный отступ для телефона */
         }
 
         /* Для вертикальных экранов (телефоны) */
         @media (max-aspect-ratio: 1/1) {
             body.page2-active {
-                background-position: center 30%;
+                background-position: center 25%; /* Как было для телефона */
+            }
+            .page2-content {
+                padding-bottom: 20px; /* Как было */
+            }
+            .button-bottom {
+                margin-bottom: 20px; /* Как было */
             }
         }
 
         /* Для горизонтальных экранов (ПК) */
         @media (min-aspect-ratio: 1/1) {
             body.page2-active {
-                background-position: center 10%; /* Меньше поднятие фона для ПК */
+                background-position: center 10%; /* Поднятие фона для ПК */
             }
             .page2-content {
-                padding-bottom: 15vh; /* Больше отступ для ПК */
+                padding-bottom: 10vh; /* Больше отступ для ПК */
             }
             .button-bottom {
-                margin-bottom: 10vh; /* Больше отступ для нижней кнопки */
+                margin-bottom: 8vh; /* Больше отступ для нижней кнопки */
             }
         }
     </style>
@@ -110,7 +116,7 @@
 
     <div class="page2-content" id="page2">
         <button class="page2-button button-top">ВЕРХНЯЯ КНОПКА</button>
-        <button class="page2-button button-bottom">ВОПРОСЫ ПРЕДСТАВИТЕЛЮ</button>
+        <button class="page2-button button-bottom">НИЖНЯЯ КНОПКА</button>
     </div>
 
     <script>
