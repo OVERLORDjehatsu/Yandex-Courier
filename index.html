@@ -20,10 +20,9 @@
             color: white;
             text-shadow: 1px 1px 2px black;
             transition: all 0.5s ease;
-            overflow: hidden; /* Предотвращаем скроллинг */
+            overflow: hidden;
         }
 
-        /* Стили для первой страницы */
         .bottom-button {
             width: 60%;
             max-width: 500px;
@@ -42,23 +41,19 @@
             transition: all 0.3s ease;
         }
 
-        /* Стили для второй страницы */
         .page2-content {
             display: none;
             width: 100%;
-            height: auto;
             flex-direction: column;
-            justify-content: flex-end;
             align-items: center;
             position: fixed;
             bottom: 0;
-            padding-bottom: 20px;
-            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+            padding-bottom: 5vh; /* Адаптивный отступ */
+            background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
         }
 
         body.page2-active {
             background-image: url('https://i.imgur.com/yat5SFR.jpg');
-            background-position: center top; /* Изменили на top для ПК */
             background-size: cover;
             background-repeat: no-repeat;
         }
@@ -76,7 +71,6 @@
             border-radius: 15px;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
         }
 
         .button-top {
@@ -87,32 +81,33 @@
         .button-bottom {
             background: #FCE000;
             color: black;
-            margin-bottom: 30px;
+            margin-bottom: 5vh; /* Адаптивный отступ */
         }
 
-        /* Адаптация для ПК */
-        @media (min-aspect-ratio: 1/1) {
-            body.page2-active {
-                background-position: center 20%; /* Поднимаем фон меньше для ПК */
-            }
-            .page2-content {
-                padding-bottom: 40px; /* Больше отступ для ПК */
-            }
-        }
-
-        /* Адаптация для телефонов */
+        /* Для вертикальных экранов (телефоны) */
         @media (max-aspect-ratio: 1/1) {
             body.page2-active {
-                background-position: center 25%; /* Поднимаем фон больше для телефонов */
+                background-position: center 25%;
+            }
+        }
+
+        /* Для горизонтальных экранов (ПК) */
+        @media (min-aspect-ratio: 1/1) {
+            body.page2-active {
+                background-position: center 15%;
+            }
+            .page2-content {
+                padding-bottom: 10vh; /* Больше отступ для ПК */
+            }
+            .button-bottom {
+                margin-bottom: 8vh; /* Больше отступ для ПК */
             }
         }
     </style>
 </head>
 <body>
-    <!-- Первая страница -->
     <button class="bottom-button" id="partnerBtn">СТАТЬ ПАРТНЕРОМ</button>
 
-    <!-- Вторая страница -->
     <div class="page2-content" id="page2">
         <button class="page2-button button-top">ВЕРХНЯЯ КНОПКА</button>
         <button class="page2-button button-bottom">НИЖНЯЯ КНОПКА</button>
@@ -120,13 +115,8 @@
 
     <script>
         document.getElementById('partnerBtn').addEventListener('click', function() {
-            // Добавляем класс для смены фона
             document.body.classList.add('page2-active');
-
-            // Прячем кнопку первой страницы
             this.style.display = 'none';
-
-            // Показываем контент второй страницы
             document.getElementById('page2').style.display = 'flex';
         });
     </script>
