@@ -7,33 +7,58 @@
     <link rel="icon" href="https://i.imgur.com/OSN8MXG.jpg" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <style>
-        body {
+        body, html {
             margin: 0;
             padding: 0;
-            height: 100vh;
-            background: #FFFFFF; /* Белый фон */
-            font-family: Arial, sans-serif;
-            color: black;
+            height: 100%;
             overflow: hidden;
-            position: relative;
+            font-family: Arial, sans-serif;
         }
 
-        .background-image {
+        .background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://i.imgur.com/OSN8MXG.jpg') center/cover no-repeat;
+            background: #000000 url('https://i.imgur.com/OSN8MXG.jpg') center/cover no-repeat;
             z-index: -1;
-            transition: all 0.5s ease;
+            transition: background-image 0.5s ease;
         }
 
-        .content-container {
-            height: 175vh; /* 100% + 75% для прокрутки */
+        .page-container {
+            position: relative;
+            height: 200vh; /* Двойная высота для скролла */
+            width: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .page1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
+            align-items: center;
+            color: white;
+            text-shadow: 1px 1px 2px black;
+        }
+
+        .page2 {
+            position: absolute;
+            top: 100vh;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            color: white;
+            text-shadow: 1px 1px 2px black;
         }
 
         button {
@@ -57,22 +82,18 @@
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
-            position: relative;
-            z-index: 1;
         }
 
         .page2-content {
-            display: none;
             width: 100%;
+            display: flex;
             flex-direction: column;
             align-items: center;
-            position: fixed;
-            bottom: 0;
             padding-bottom: 20px;
-            z-index: 2;
+            background: linear-gradient(to top, rgba(0,0,0,0.2) 0%, transparent 100%);
         }
 
-        body.page2-active .background-image {
+        body.page2-active .background {
             background-image: url('https://i.imgur.com/yat5SFR.jpg');
         }
 
@@ -113,14 +134,14 @@
 
         /* Для вертикальных экранов (телефоны) */
         @media (max-aspect-ratio: 1/1) {
-            body.page2-active .background-image {
+            body.page2-active .background {
                 background-position: center 25%;
             }
         }
 
         /* Для горизонтальных экранов (ПК) */
         @media (min-aspect-ratio: 1/1) {
-            body.page2-active .background-image {
+            body.page2-active .background {
                 background-position: center 10%;
             }
             .page2-content {
@@ -133,37 +154,33 @@
     </style>
 </head>
 <body>
-    <div class="background-image"></div>
-    <div class="content-container">
-        <button class="bottom-button" id="partnerBtn">СТАТЬ ПАРТНЕРОМ</button>
-    </div>
-
-    <div class="page2-content" id="page2">
-        <button class="page2-button button-top" id="refLinkBtn">
-            РЕФЕРАЛЬНАЯ ССЫЛКА<br>
-            <span>Скопировать реферальную ссылку</span>
-        </button>
-        <button class="page2-button button-bottom" id="tgContactBtn">
-            ВОПРОСЫ ПРЕДСТАВИТЕЛЮ
-        </button>
+    <div class="background"></div>
+    <div class="page-container" id="pageContainer">
+        <div class="page1">
+            <button class="bottom-button" id="partnerBtn">СТАТЬ ПАРТНЕРОМ</button>
+        </div>
+        <div class="page2">
+            <div class="page2-content" id="page2">
+                <button class="page2-button button-top" id="refLinkBtn">
+                    РЕФЕРАЛЬНАЯ ССЫЛКА<br>
+                    <span>Скопировать реферальную ссылку</span>
+                </button>
+                <button class="page2-button button-bottom" id="tgContactBtn">
+                    ВОПРОСЫ ПРЕДСТАВИТЕЛЮ
+                </button>
+            </div>
+        </div>
     </div>
 
     <script>
         document.getElementById('partnerBtn').addEventListener('click', function() {
             document.body.classList.add('page2-active');
-            this.style.display = 'none';
-            document.getElementById('page2').style.display = 'flex';
-
-            // Прокручиваем страницу на 25% вниз
-            window.scrollTo({
-                top: window.innerHeight * 0.25,
-                behavior: 'smooth'
-            });
+            document.getElementById('pageContainer').style.transform = 'translateY(-25vh)';
         });
 
         // Копирование реферальной ссылки
         document.getElementById('refLinkBtn').addEventListener('click', function() {
-            const refLink = "https://unicom24.ru/offer/rs/3dq84alsttrm1/3sxw56apnltc4/?partner=220671&erid=2SDnjeyJQGQ&platform_id=30530";
+            const refLink = "ХУУУУУУУУУУУЙ"; // Замените на свою ссылку
             navigator.clipboard.writeText(refLink)
                 .then(() => {
                     const originalText = this.innerHTML;
