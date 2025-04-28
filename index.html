@@ -19,9 +19,9 @@
             align-items: center;
             color: white;
             text-shadow: 1px 1px 2px black;
-            transition: all 0.5s ease;
+            transition: background-image 0.5s ease;
             overflow: hidden;
-            background-attachment: fixed; /* Добавляем фиксированный фон */
+            background-attachment: fixed;
         }
 
         button {
@@ -60,10 +60,10 @@
 
         body.page2-active {
             background-image: url('https://i.imgur.com/yat5SFR.jpg');
-            background-position: center 20% !important; /* Поднимаем фон на 20% вверх */
+            background-position: center 20% !important;
             background-size: cover;
             background-repeat: no-repeat;
-            background-attachment: fixed; /* Фиксируем фон */
+            background-attachment: fixed;
         }
 
         .page2-button {
@@ -100,8 +100,6 @@
             color: black;
             margin-bottom: 20px;
         }
-
-        /* Убираем медиа-запросы, которые могут переопределять background-position */
     </style>
 </head>
 <body>
@@ -124,7 +122,6 @@
             document.getElementById('page2').style.display = 'flex';
         });
 
-        // Копирование реферальной ссылки
         document.getElementById('refLinkBtn').addEventListener('click', function() {
             const refLink = "https://unicom24.ru/offer/rs/3dq84alsttrm1/3sxw56apnltc4/?partner=220671&erid=2SDnjeyJQGQ&platform_id=30530";
             navigator.clipboard.writeText(refLink)
@@ -140,7 +137,6 @@
                 });
         });
 
-        // Переход в Telegram
         document.getElementById('tgContactBtn').addEventListener('click', function() {
             window.open('https://t.me/SecretsVerse', '_blank');
         });
