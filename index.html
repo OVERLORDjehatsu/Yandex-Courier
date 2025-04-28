@@ -11,21 +11,34 @@
             margin: 0;
             padding: 0;
             height: 100vh;
-            background: #000000 url('https://i.imgur.com/OSN8MXG.jpg') center/cover no-repeat;
+            background: #FFFFFF; /* Белый фон */
             font-family: Arial, sans-serif;
+            color: black;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.imgur.com/OSN8MXG.jpg') center/cover no-repeat;
+            z-index: -1;
+            transition: all 0.5s ease;
+        }
+
+        .content-container {
+            height: 175vh; /* 100% + 75% для прокрутки */
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            align-items: center;
-            color: white;
-            text-shadow: 1px 1px 2px black;
-            transition: all 0.5s ease;
-            overflow: hidden;
         }
 
         button {
-            outline: none !important; /* Убираем синюю обводку */
-            -webkit-tap-highlight-color: transparent; /* Убираем подсветку на мобильных */
+            outline: none !important;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .bottom-button {
@@ -44,6 +57,8 @@
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
         }
 
         .page2-content {
@@ -54,13 +69,11 @@
             position: fixed;
             bottom: 0;
             padding-bottom: 20px;
-            background: linear-gradient(to top, rgba(0,0,0,0.2) 0%, transparent 100%);
+            z-index: 2;
         }
 
-        body.page2-active {
+        body.page2-active .background-image {
             background-image: url('https://i.imgur.com/yat5SFR.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
         }
 
         .page2-button {
@@ -81,7 +94,7 @@
         .button-top {
             background: #EEEEEE;
             color: black;
-            padding: 12px 0; /* Уменьшил padding для двухстрочного текста */
+            padding: 12px 0;
         }
 
         .button-top span {
@@ -100,14 +113,14 @@
 
         /* Для вертикальных экранов (телефоны) */
         @media (max-aspect-ratio: 1/1) {
-            body.page2-active {
+            body.page2-active .background-image {
                 background-position: center 25%;
             }
         }
 
         /* Для горизонтальных экранов (ПК) */
         @media (min-aspect-ratio: 1/1) {
-            body.page2-active {
+            body.page2-active .background-image {
                 background-position: center 10%;
             }
             .page2-content {
@@ -120,7 +133,10 @@
     </style>
 </head>
 <body>
-    <button class="bottom-button" id="partnerBtn">СТАТЬ ПАРТНЕРОМ</button>
+    <div class="background-image"></div>
+    <div class="content-container">
+        <button class="bottom-button" id="partnerBtn">СТАТЬ ПАРТНЕРОМ</button>
+    </div>
 
     <div class="page2-content" id="page2">
         <button class="page2-button button-top" id="refLinkBtn">
@@ -137,11 +153,17 @@
             document.body.classList.add('page2-active');
             this.style.display = 'none';
             document.getElementById('page2').style.display = 'flex';
+
+            // Прокручиваем страницу на 25% вниз
+            window.scrollTo({
+                top: window.innerHeight * 0.25,
+                behavior: 'smooth'
+            });
         });
 
         // Копирование реферальной ссылки
         document.getElementById('refLinkBtn').addEventListener('click', function() {
-            const refLink = "ХУУУУУУУУУУУЙ"; // Замените на свою ссылку
+            const refLink = "https://unicom24.ru/offer/rs/3dq84alsttrm1/3sxw56apnltc4/?partner=220671&erid=2SDnjeyJQGQ&platform_id=30530";
             navigator.clipboard.writeText(refLink)
                 .then(() => {
                     const originalText = this.innerHTML;
@@ -157,7 +179,6 @@
 
         // Переход в Telegram
         document.getElementById('tgContactBtn').addEventListener('click', function() {
-            // Замените @username на реальный username представителя
             window.open('https://t.me/SecretsVerse', '_blank');
         });
     </script>
