@@ -2,63 +2,26 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>My Mini App</title>
     <link rel="icon" href="https://i.imgur.com/OSN8MXG.jpg" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <style>
-        body, html {
+        body {
             margin: 0;
             padding: 0;
-            height: 100%;
-            overflow: hidden;
+            height: 100vh;
+            background: #000000 url('https://i.imgur.com/OSN8MXG.jpg') center/cover no-repeat fixed;
             font-family: Arial, sans-serif;
-        }
-
-        .background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000000 url('https://i.imgur.com/OSN8MXG.jpg') center/cover no-repeat;
-            z-index: -1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            color: white;
+            text-shadow: 1px 1px 2px black;
             transition: background-image 0.5s ease;
-        }
-
-        .page-container {
-            position: relative;
-            height: 200vh; /* Двойная высота для скролла */
-            width: 100%;
-            transition: transform 0.5s ease;
-        }
-
-        .page1 {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: center;
-            color: white;
-            text-shadow: 1px 1px 2px black;
-        }
-
-        .page2 {
-            position: absolute;
-            top: 100vh;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: center;
-            color: white;
-            text-shadow: 1px 1px 2px black;
+            overflow: hidden;
+            touch-action: pan-y;
         }
 
         button {
@@ -85,15 +48,20 @@
         }
 
         .page2-content {
+            display: none;
             width: 100%;
-            display: flex;
             flex-direction: column;
             align-items: center;
+            position: fixed;
+            bottom: 0;
             padding-bottom: 20px;
             background: linear-gradient(to top, rgba(0,0,0,0.2) 0%, transparent 100%);
+            transition: transform 0.3s ease-out;
+            transform: translateY(0);
+            touch-action: pan-y;
         }
 
-        body.page2-active .background {
+        body.page2-active {
             background-image: url('https://i.imgur.com/yat5SFR.jpg');
         }
 
@@ -134,14 +102,14 @@
 
         /* Для вертикальных экранов (телефоны) */
         @media (max-aspect-ratio: 1/1) {
-            body.page2-active .background {
+            body.page2-active {
                 background-position: center 25%;
             }
         }
 
         /* Для горизонтальных экранов (ПК) */
         @media (min-aspect-ratio: 1/1) {
-            body.page2-active .background {
+            body.page2-active {
                 background-position: center 10%;
             }
             .page2-content {
@@ -154,28 +122,23 @@
     </style>
 </head>
 <body>
-    <div class="background"></div>
-    <div class="page-container" id="pageContainer">
-        <div class="page1">
-            <button class="bottom-button" id="partnerBtn">СТАТЬ ПАРТНЕРОМ</button>
-        </div>
-        <div class="page2">
-            <div class="page2-content" id="page2">
-                <button class="page2-button button-top" id="refLinkBtn">
-                    РЕФЕРАЛЬНАЯ ССЫЛКА<br>
-                    <span>Скопировать реферальную ссылку</span>
-                </button>
-                <button class="page2-button button-bottom" id="tgContactBtn">
-                    ВОПРОСЫ ПРЕДСТАВИТЕЛЮ
-                </button>
-            </div>
-        </div>
+    <button class="bottom-button" id="partnerBtn">СТАТЬ ПАРТНЕРОМ</button>
+
+    <div class="page2-content" id="page2">
+        <button class="page2-button button-top" id="refLinkBtn">
+            РЕФЕРАЛЬНАЯ ССЫЛКА<br>
+            <span>Скопировать реферальную ссылку</span>
+        </button>
+        <button class="page2-button button-bottom" id="tgContactBtn">
+            ВОПРОСЫ ПРЕДСТАВИТЕЛЮ
+        </button>
     </div>
 
     <script>
         document.getElementById('partnerBtn').addEventListener('click', function() {
             document.body.classList.add('page2-active');
-            document.getElementById('pageContainer').style.transform = 'translateY(-25vh)';
+            this.style.display = 'none';
+            document.getElementById('page2').style.display = 'flex';
         });
 
         // Копирование реферальной ссылки
@@ -198,6 +161,48 @@
         document.getElementById('tgContactBtn').addEventListener('click', function() {
             window.open('https://t.me/SecretsVerse', '_blank');
         });
+
+        // Добавляем обработчики для свайпа
+        let startY = 0;
+        let currentY = 0;
+        const page2Content = document.getElementById('page2');
+        const maxTranslateY = window.innerHeight * 0.25; // Максимальное смещение - 25% высоты экрана
+
+        page2Content.addEventListener('touchstart', function(e) {
+            startY = e.touches[0].clientY;
+            currentY = getTranslateY(page2Content);
+        }, {passive: true});
+
+        page2Content.addEventListener('touchmove', function(e) {
+            const y = e.touches[0].clientY;
+            const deltaY = y - startY;
+
+            // Разрешаем только свайп вниз (положительный deltaY)
+            if (deltaY > 0) {
+                let newTranslateY = currentY + deltaY;
+
+                // Ограничиваем максимальное смещение
+                if (newTranslateY > maxTranslateY) {
+                    newTranslateY = maxTranslateY;
+                }
+
+                page2Content.style.transform = `translateY(${newTranslateY}px)`;
+            }
+
+            e.preventDefault();
+        }, {passive: false});
+
+        page2Content.addEventListener('touchend', function() {
+            // Можно добавить анимацию возврата, если нужно
+            // или оставить как есть, чтобы контент оставался на смещенной позиции
+        }, {passive: true});
+
+        // Функция для получения текущего значения translateY
+        function getTranslateY(element) {
+            const style = window.getComputedStyle(element);
+            const matrix = new WebKitCSSMatrix(style.transform);
+            return matrix.m42;
+        }
     </script>
 </body>
 </html>
