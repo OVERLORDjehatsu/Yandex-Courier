@@ -21,6 +21,7 @@
             text-shadow: 1px 1px 2px black;
             transition: all 0.5s ease;
             overflow: hidden;
+            background-attachment: fixed; /* Добавляем фиксированный фон */
         }
 
         button {
@@ -62,6 +63,7 @@
             background-position: center 20% !important; /* Поднимаем фон на 20% вверх */
             background-size: cover;
             background-repeat: no-repeat;
+            background-attachment: fixed; /* Фиксируем фон */
         }
 
         .page2-button {
@@ -99,25 +101,7 @@
             margin-bottom: 20px;
         }
 
-        /* Для вертикальных экранов (телефоны) */
-        @media (max-aspect-ratio: 1/1) {
-            body.page2-active {
-                background-position: center 20% !important; /* Поднимаем фон на 20% вверх */
-            }
-        }
-
-        /* Для горизонтальных экранов (ПК) */
-        @media (min-aspect-ratio: 1/1) {
-            body.page2-active {
-                background-position: center 20% !important; /* Поднимаем фон на 20% вверх */
-            }
-            .page2-content {
-                padding-bottom: 10vh;
-            }
-            .button-bottom {
-                margin-bottom: 8vh;
-            }
-        }
+        /* Убираем медиа-запросы, которые могут переопределять background-position */
     </style>
 </head>
 <body>
@@ -142,7 +126,7 @@
 
         // Копирование реферальной ссылки
         document.getElementById('refLinkBtn').addEventListener('click', function() {
-            const refLink = "ХУУУУУУУУУУУЙ"; // Замените на свою ссылку
+            const refLink = "https://unicom24.ru/offer/rs/3dq84alsttrm1/3sxw56apnltc4/?partner=220671&erid=2SDnjeyJQGQ&platform_id=30530";
             navigator.clipboard.writeText(refLink)
                 .then(() => {
                     const originalText = this.innerHTML;
