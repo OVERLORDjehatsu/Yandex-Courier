@@ -20,6 +20,7 @@
             text-shadow: 1px 1px 2px black;
             overflow: hidden;
             position: relative;
+            background: white; /* Белый фон для нижней полосы */
         }
 
         /* Основной фон (первая страница) */
@@ -43,10 +44,10 @@
         body.page2-active::after {
             content: '';
             position: fixed;
-            top: -27h; /* Поднимаем фон на 20% */
+            top: -42vh; /* Поднимаем фон на 42% (27% + 15%) */
             left: 0;
             right: 0;
-            height: 100vh; /* Компенсируем поднятие */
+            height: 100vh; /* Оставляем исходную высоту */
             background: #000000 url('https://imgur.com/Exb6PYp.jpg') center/cover no-repeat;
             z-index: -1;
         }
